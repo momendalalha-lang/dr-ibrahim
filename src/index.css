@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Paper matte surfaces ──────────────────────────────────── */
+  --color-canvas: #f5efe1;
+  --color-surface: #fdfbf3;
+  --color-muted: #efe8d6;
+  --color-line: #e4dac2;
+  --color-line-strong: #d2c5a4;
+
+  /* ── Warm ink (espresso → taupe text) ──────────────────────── */
+  --color-ink: #2b2115;
+  --color-ink-2: #4c4131;
+  --color-ink-3: #6f6350;
+  --color-ink-4: #97897a;
+  --color-ink-5: #c3b8a2;
+
+  /* ── Editorial purple ──────────────────────────────────────── */
+  --color-royal-50: #f5f1fe;
+  --color-royal-100: #ebe4fd;
+  --color-royal-200: #d9cbfa;
+  --color-royal-300: #bea6f5;
+  --color-royal-400: #9d7ced;
+  --color-royal-500: #7c5ce0;
+  --color-royal-600: #6d3fd1;
+  --color-royal-700: #5b21b6;
+  --color-royal-800: #4c1d95;
+  --color-royal-900: #34145e;
+
+  /* ── Vivid leaf green (calm but eye-catching) ──────────────── */
+  --color-mint-50: #f0f9f2;
+  --color-mint-100: #ddf2e1;
+  --color-mint-200: #c2e7c9;
+  --color-mint-300: #94d6a4;
+  --color-mint-400: #63c37d;
+  --color-mint-500: #3faf60;
+  --color-mint-600: #2f9149;
+  --color-mint-700: #25743b;
+  --color-mint-800: #1c5b2e;
+
+  /* ── Deep plum (footer / dark bands) ───────────────────────── */
+  --color-plum-900: #2e1449;
+  --color-plum-800: #3b1a5c;
+  --color-plum-700: #4a2270;
+
+  /* ── Typography ────────────────────────────────────────────── */
+  --font-display: "Fraunces", "IBM Plex Sans Arabic", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+}
+
+/* Arabic mode: prefer the Arabic-capable face across the whole stack */
+[dir="rtl"] {
+  --font-display: "IBM Plex Sans Arabic", "Fraunces", serif;
+  --font-body: "IBM Plex Sans Arabic", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-royal-200);
+  color: var(--color-royal-900);
+}
+
+/* Slim, calm scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-royal-600);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Crisp pixel-art rendering for the mascot coin */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ── Paper matte helpers ────────────────────────────────────── */
+
+/* subtle paper grain overlay — apply to a positioned parent */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* section eyebrow label — replaces the old pixel font */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ── Avatar / mascot animations ─────────────────────────────── */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.avatar-float {
+  animation: float-soft 7s ease-in-out infinite;
+}
+.mascot-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-spin 80s linear infinite;
+}
+.group:hover .mascot-ring {
+  animation-duration: 18s;
+}
+
+/* moving banner — the track holds two copies of the reel row */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 46s linear infinite;
+}
+.marquee-band:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── Hero matte backdrop ────────────────────────────────────── */
+.hero-wash {
+  background:
+    radial-gradient(ellipse 70% 55% at 85% -10%, rgb(124 58 237 / 0.10), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 8% 110%, rgb(63 175 96 / 0.12), transparent 60%),
+    linear-gradient(to bottom, #f8f3e6, #f5efe1);
+}
+
+/* ── Cards ──────────────────────────────────────────────────── */
+.card-lift {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 30px -14px rgb(43 33 21 / 0.22),
+    0 4px 10px -6px rgb(91 33 182 / 0.10);
+}
+
+/* ── Overlays & toast ───────────────────────────────────────── */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-overlay {
+  animation: overlay-in 0.2s ease both;
+}
+.anim-modal {
+  animation: modal-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-toast {
+  animation: toast-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Prose-ish article body ─────────────────────────────────── */
+.article-body p + p {
+  margin-top: 0.9em;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .avatar-float,
+  .mascot-ring,
+  .marquee-track,
+  .anim-overlay,
+  .anim-modal,
+  .anim-toast {
+    animation: none !important;
+  }
+  .card-lift,
+  .card-lift:hover {
+    transition: none;
+    transform: none;
+  }
+}
