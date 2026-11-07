@@ -2,6 +2,7 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { ArrowUpRight, AtSign, BadgeCheck, Camera, Globe, Play, Send } from 'lucide-react';
 import { useLang } from '../i18n';
 import type { InstagramProfile, SiteProfile } from '../types/content';
+import { useInstagramStats } from '../lib/useInstagramStats';
 import MascotCoin from './MascotCoin';
 
 interface FooterProps {
@@ -19,6 +20,7 @@ const SOCIAL_MAP: Record<string, typeof Globe> = {
 
 export default function Footer({ profile, instagram, onNavigate }: FooterProps) {
   const { t, lt } = useLang();
+  const igStats = useInstagramStats();
   const year = new Date().getFullYear();
 
   const scrollTo = (id: string) => (e: ReactMouseEvent) => {
@@ -118,7 +120,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
               </p>
               <p className="mt-0.5 text-sm text-[#c9bce0]">{lt(instagram.bio)}</p>
               <p className="mt-1.5 font-mono text-[11px] text-mint-300">
-                {instagram.followers} followers · {instagram.following} following
+                {igStats.followers} {t('reels.followers')} · {igStats.following} following
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-mint-500 px-4 py-2 text-sm font-bold text-white transition-colors group-hover:bg-mint-400 sm:self-center">

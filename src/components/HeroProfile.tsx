@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import {
   ArrowDown,
+  ArrowUpRight,
+  Camera,
   Copy,
   QrCode,
   Share2,
@@ -9,6 +11,8 @@ import {
 } from 'lucide-react';
 import { useLang } from '../i18n';
 import type { SiteProfile } from '../types/content';
+import { instagramProfile } from '../data/reels';
+import { useInstagramStats } from '../lib/useInstagramStats';
 import MascotCoin from './MascotCoin';
 import QrCodeModal from './QrCodeModal';
 import { toast } from '../lib/toast';
@@ -22,6 +26,7 @@ interface HeroProfileProps {
 export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroProfileProps) {
   const { t, lt } = useLang();
   const [qrOpen, setQrOpen] = useState(false);
+  const igStats = useInstagramStats();
 
   const siteUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : '';
 
@@ -81,13 +86,30 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
               {lt(profile.bio)}
             </p>
 
-            {/* status pill */}
-            <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-mint-200 bg-mint-50 px-4 py-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-500 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-mint-500" />
-              </span>
-              <span className="text-sm font-semibold text-mint-700">{lt(profile.statusLabel)}</span>
+            {/* status + live Instagram followers */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-mint-200 bg-mint-50 px-4 py-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-500 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint-500" />
+                </span>
+                <span className="text-sm font-semibold text-mint-700">{lt(profile.statusLabel)}</span>
+              </div>
+
+              <a
+                href={instagramProfile.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-royal-200 bg-royal-50 px-4 py-1.5 text-sm font-semibold text-royal-800 transition-colors hover:border-royal-400 hover:bg-royal-100"
+              >
+                <Camera className="h-3.5 w-3.5 text-royal-600" />
+                <span className="font-mono font-bold text-royal-900">{igStats.followers}</span>
+                <span>{t('reels.followers')}</span>
+                <span className="font-mono text-xs text-royal-600" dir="ltr">
+                  @{instagramProfile.handle}
+                </span>
+                <ArrowUpRight className="h-3.5 w-3.5 text-royal-600 rtl:-scale-x-100" />
+              </a>
             </div>
 
             {/* action bar */}

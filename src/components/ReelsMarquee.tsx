@@ -1,6 +1,7 @@
 import { ArrowUpRight, Camera, Play } from 'lucide-react';
 import { useLang } from '../i18n';
 import { instagramProfile, reels } from '../data/reels';
+import { useInstagramStats } from '../lib/useInstagramStats';
 
 /**
  * Moving banner of the latest Instagram reels.
@@ -9,6 +10,7 @@ import { instagramProfile, reels } from '../data/reels';
  */
 export default function ReelsMarquee() {
   const { lt, t } = useLang();
+  const igStats = useInstagramStats();
   const row = [...reels, ...reels];
 
   return (
@@ -51,7 +53,7 @@ export default function ReelsMarquee() {
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-[#f3ecdd] transition-colors hover:border-mint-400/60 hover:text-mint-300"
           >
             <span className="font-mono text-xs">
-              {instagramProfile.followers} {t('reels.followers')}
+              {igStats.followers} {t('reels.followers')}
             </span>
             <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
           </a>

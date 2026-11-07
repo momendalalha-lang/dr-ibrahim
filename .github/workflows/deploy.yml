@@ -5,8 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # daily stats refresh — re-checks the Instagram follower count
-    - cron: '15 6 * * *'
+    # refresh the Instagram follower count every 6 hours
+    - cron: '15 */6 * * *'
 
 permissions:
   contents: write
@@ -28,18 +28,22 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Update Instagram stats (best effort)
+      - run: npm ci
+
+      - name: Install Playwright Chromium for live Instagram scrape
+        run: npx playwright install --with-deps chromium
+
+      - name: Update Instagram stats
         run: node scripts/update-instagram.mjs
 
-      - run: npm ci
       - run: npm run build
 
       - name: Commit updated stats (if changed)
         run: |
-          if ! git diff --quiet src/data/reels.ts; then
+          if ! git diff --quiet src/data/reels.ts public/ig-stats.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/data/reels.ts
+            git add src/data/reels.ts public/ig-stats.json
             git commit -m "chore: refresh Instagram follower count [skip ci]"
             git push
           else
@@ -68,6 +72,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
