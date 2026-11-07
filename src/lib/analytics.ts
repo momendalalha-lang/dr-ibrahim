@@ -5,7 +5,7 @@
  * into GA_ID below. Until then every call is a safe no-op, so the site
  * works identically with or without analytics.
  */
-const GA_ID = 'G-XXXXXXXXXX';
+const GA_ID = 'G-0FC6CRRNS9';
 
 declare global {
   interface Window {
