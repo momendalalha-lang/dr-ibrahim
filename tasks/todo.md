@@ -237,5 +237,5 @@
 - [x] Live bundle hash `index-IsSbuX7N.js` matches local `dist/` on both hosts
 
 **Known follow-ups:**
-- [ ] Admin email discrepancy to confirm before future Firebase work: `dr.ibrahim@mus-hub.com` vs `dr.ibrahem@mus-hub.com` (live user verified as `dr.ibrahem@mus-hub.com`)
+- [x] Admin email resolved: the live account is `dr.ibrahim@mus-hub.com` (with "i"); rules match; login + write verified 2026-11-07
 - [ ] Optional: code-split the >500kB JS chunk; tune motion timing after human review
