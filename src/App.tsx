@@ -3,6 +3,7 @@ import { LangProvider } from './i18n';
 import { siteData } from './data/siteData';
 import type { BranchNode } from './types/content';
 import { loadCustomBranches } from './lib/adminStore';
+import { subscribeContent, type LiveContent } from './lib/contentStore';
 import Header from './components/Header';
 import HeroProfile from './components/HeroProfile';
 import ReelsMarquee from './components/ReelsMarquee';
@@ -39,11 +40,18 @@ function Site() {
   const [route, setRoute] = useState<Route>(parseHash);
   const [helperOpen, setHelperOpen] = useState(false);
   const [customBranches, setCustomBranches] = useState<BranchNode[]>(() => loadCustomBranches());
+  const [live, setLive] = useState<LiveContent>({ branches: null, posts: null });
+
+  // live Firestore content — falls back to bundled seeds while loading/offline
+  useEffect(() => subscribeContent(setLive), []);
 
   const branches = useMemo(
-    () => [...siteData.branches, ...customBranches],
-    [customBranches]
+    () =>
+      live.branches ?? [...siteData.branches, ...customBranches],
+    [live.branches, customBranches]
   );
+
+  const posts = live.posts ?? siteData.posts;
 
   useEffect(() => {
     const onHash = () => setRoute(parseHash());
@@ -97,8 +105,8 @@ function Site() {
       <main>
         {route.admin ? (
           <AdminPanel
-            seedBranches={siteData.branches}
-            adminPin={siteData.admin?.pin ?? ''}
+            branches={branches}
+            posts={posts}
             onBack={onAdminBack}
           />
         ) : (
@@ -116,7 +124,7 @@ function Site() {
               onOpenHelper={() => setHelperOpen(true)}
             />
             <NewsBlogFeed
-              posts={siteData.posts}
+              posts={posts}
               activePostId={route.post}
               onOpenPost={onOpenPost}
               onGoToBranch={onOpenBranch}

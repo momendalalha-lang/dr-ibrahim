@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public read for everyone; only the admin account may write.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'dr.ibrahim@mus-hub.com';
+    }
+
+    match /branches/{docId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /posts/{docId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read: if false;
+      allow write: if false;
+    }
+  }
+}

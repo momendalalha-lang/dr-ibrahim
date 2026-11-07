@@ -83,7 +83,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Deploy to Firebase Hosting
-        run: npx -y firebase-tools deploy --only hosting --project dr-ibrahim-hub --token "$FIREBASE_TOKEN"
+      - name: Deploy to Firebase Hosting + Firestore rules
+        run: npx -y firebase-tools deploy --only hosting,firestore:rules --project dr-ibrahim-hub --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
