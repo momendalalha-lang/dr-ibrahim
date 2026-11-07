@@ -2,6 +2,7 @@ import { ArrowUpRight, Copy, FileText, FolderOpen, ExternalLink, HardDrive } fro
 import { useLang } from '../i18n';
 import type { DriveResource } from '../types/content';
 import { toast } from '../lib/toast';
+import { trackEvent } from '../lib/analytics';
 
 interface DriveResourceCardProps {
   resource: DriveResource;
@@ -31,6 +32,7 @@ export default function DriveResourceCard({ resource, pathLabel }: DriveResource
       document.execCommand('copy');
       ta.remove();
     }
+    trackEvent('copy_drive_link', { resource: resource.id });
     toast(t('card.copied'));
   };
 
@@ -86,6 +88,9 @@ export default function DriveResourceCard({ resource, pathLabel }: DriveResource
           href={resource.url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackEvent('drive_click', { resource: resource.id, type: resource.type })
+          }
           className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-mint-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-mint-600/25 transition-all hover:bg-mint-700 active:scale-[0.99]"
         >
           <HardDrive className="h-4 w-4 shrink-0" />

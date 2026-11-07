@@ -3,6 +3,7 @@ import { Languages } from 'lucide-react';
 import { useLang } from '../i18n';
 import type { SiteProfile } from '../types/content';
 import MascotCoin from './MascotCoin';
+import { trackEvent } from '../lib/analytics';
 
 interface HeaderProps {
   profile: SiteProfile;
@@ -61,7 +62,11 @@ export default function Header({ profile, onNavigate }: HeaderProps) {
 
         {/* language toggle */}
         <button
-          onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
+          onClick={() => {
+            const next = lang === 'en' ? 'ar' : 'en';
+            trackEvent('language_switch', { lang: next });
+            setLang(next);
+          }}
           className="flex items-center gap-2 rounded-full border border-line bg-muted px-3.5 py-1.5 text-sm font-semibold text-ink-2 transition-all hover:border-royal-300 hover:bg-royal-50 hover:text-royal-700"
           aria-label={t('lang.label')}
           title={t('lang.label')}

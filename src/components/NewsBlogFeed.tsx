@@ -4,6 +4,7 @@ import { useLang, type DictKey } from '../i18n';
 import type { BlogPost } from '../types/content';
 import ArticleModal, { PostCategoryChip } from './ArticleModal';
 import Reveal from './Reveal';
+import { trackEvent } from '../lib/analytics';
 
 interface NewsBlogFeedProps {
   posts: BlogPost[];
@@ -60,7 +61,10 @@ export default function NewsBlogFeed({ posts, activePostId, onOpenPost, onGoToBr
             return (
               <button
                 key={f.key}
-                onClick={() => setFilter(f.key)}
+                onClick={() => {
+                  trackEvent('post_filter', { filter: f.key });
+                  setFilter(f.key);
+                }}
                 className={`rounded-full px-4 py-1.5 text-[13px] font-semibold transition-all ${
                   active
                     ? 'bg-royal-700 text-white shadow-sm'
@@ -106,18 +110,23 @@ function PostCard({ post, onOpen }: { post: BlogPost; onOpen: () => void }) {
     year: 'numeric',
   });
 
+  const open = () => {
+    trackEvent('post_open', { post: post.id, category: post.category });
+    onOpen();
+  };
+
   return (
     <article
       className={`card-lift group flex cursor-pointer flex-col rounded-2xl border bg-surface p-6 shadow-sm transition-shadow hover:shadow-lg ${
         post.pinned ? 'border-mint-300 ring-1 ring-mint-200' : 'border-line'
       }`}
-      onClick={onOpen}
+      onClick={open}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          onOpen();
+          open();
         }
       }}
     >

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   Activity,
   ArrowUp,
@@ -21,6 +21,7 @@ import { useLang, type DictKey } from '../i18n';
 import type { BranchNode, CategoryTag, DriveResource } from '../types/content';
 import DriveResourceCard from './DriveResourceCard';
 import Reveal from './Reveal';
+import { trackEvent } from '../lib/analytics';
 
 const ICONS: Record<string, LucideIcon> = {
   stethoscope: Stethoscope,
@@ -133,6 +134,16 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
   const { t, lt, lang } = useLang();
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>(FILTERS[0]);
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const onSearchChange = (v: string) => {
+    setQuery(v);
+    clearTimeout(searchTimer.current);
+    searchTimer.current = setTimeout(() => {
+      const q = v.trim();
+      if (q.length >= 2) trackEvent('search', { search_term: q });
+    }, 800);
+  };
 
   useEffect(() => {
     setQuery('');
@@ -190,7 +201,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
             <input
               type="search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => onSearchChange(e.target.value)}
               placeholder={t('explorer.search')}
               className="w-full rounded-2xl border border-line bg-surface py-3.5 ps-11 pe-11 text-[15px] text-ink shadow-sm placeholder:text-ink-4 focus:border-royal-400 focus:outline-none focus:ring-4 focus:ring-royal-100"
               aria-label={t('explorer.search')}
@@ -387,7 +398,10 @@ function BranchCard({
 
   return (
     <button
-      onClick={onOpen}
+      onClick={() => {
+        trackEvent('branch_open', { branch: node.id });
+        onOpen();
+      }}
       className="card-lift group flex w-full flex-col rounded-2xl border border-line bg-surface p-5 text-start shadow-sm"
     >
       <div className="flex items-start justify-between gap-3">

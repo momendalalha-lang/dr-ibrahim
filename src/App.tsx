@@ -4,6 +4,7 @@ import { siteData } from './data/siteData';
 import type { BranchNode } from './types/content';
 import { loadCustomBranches } from './lib/adminStore';
 import { subscribeContent, type LiveContent } from './lib/contentStore';
+import { initAnalytics } from './lib/analytics';
 import Header from './components/Header';
 import HeroProfile from './components/HeroProfile';
 import ReelsMarquee from './components/ReelsMarquee';
@@ -76,6 +77,9 @@ function Site() {
 
   // live Firestore content — falls back to bundled seeds while loading/offline
   useEffect(() => subscribeContent(setLive), []);
+
+  // GA4 — no-op until GA_ID is set in lib/analytics.ts
+  useEffect(() => initAnalytics(), []);
 
   const branches = useMemo(
     () =>

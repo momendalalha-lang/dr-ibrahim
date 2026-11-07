@@ -16,6 +16,7 @@ import { useInstagramStats } from '../lib/useInstagramStats';
 import MascotCoin from './MascotCoin';
 import QrCodeModal from './QrCodeModal';
 import { toast } from '../lib/toast';
+import { trackEvent } from '../lib/analytics';
 
 interface HeroProfileProps {
   profile: SiteProfile;
@@ -43,6 +44,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
       ta.remove();
       toast(t('hero.copied'));
     }
+    trackEvent('copy_link');
   };
 
   const shareProfile = async () => {
@@ -51,6 +53,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
       text: lt(profile.subtitle),
       url: siteUrl,
     };
+    trackEvent('share_profile');
     if (navigator.share) {
       try {
         await navigator.share(shareData);
@@ -63,7 +66,10 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
     toast(t('hero.shareFail'));
   };
 
-  const scrollToConnect = () => onScrollTo('connect');
+  const scrollToConnect = () => {
+    trackEvent('follow_click');
+    onScrollTo('connect');
+  };
 
   return (
     <section id="top" className="paper-grain relative overflow-hidden hero-wash">
@@ -154,7 +160,10 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
                 {t('hero.copyLink')}
               </button>
               <button
-                onClick={() => setQrOpen(true)}
+                onClick={() => {
+                  trackEvent('qr_open');
+                  setQrOpen(true);
+                }}
                 className="inline-flex items-center gap-2 rounded-xl border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink-2 shadow-sm transition-all hover:border-royal-300 hover:text-royal-700 active:scale-[0.98]"
               >
                 <QrCode className="h-4 w-4" />

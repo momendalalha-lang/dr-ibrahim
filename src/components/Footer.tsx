@@ -5,6 +5,7 @@ import type { InstagramProfile, SiteProfile } from '../types/content';
 import { useInstagramStats } from '../lib/useInstagramStats';
 import MascotCoin from './MascotCoin';
 import Reveal from './Reveal';
+import { trackEvent } from '../lib/analytics';
 
 interface FooterProps {
   profile: SiteProfile;
@@ -88,6 +89,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
                     href={s.url}
                     target={s.url === '#' ? undefined : '_blank'}
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent('social_click', { network: s.id })}
                     className="group inline-flex items-center gap-2.5 text-sm text-[#c9bce0] transition-colors hover:text-white"
                   >
                     <span className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/5 text-[#c9bce0] transition-colors group-hover:border-mint-400/50 group-hover:text-mint-300">
@@ -109,6 +111,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
             href={instagram.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent('instagram_click', { placement: 'footer' })}
             className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-mint-400/40 sm:flex-row sm:items-center"
           >
             <MascotCoin profile={profile} size={64} variant="logo" />
