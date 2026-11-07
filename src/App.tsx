@@ -12,7 +12,6 @@ import FolderExplorer from './components/FolderExplorer';
 import NewsBlogFeed from './components/NewsBlogFeed';
 import Footer from './components/Footer';
 import ToastHost from './components/ToastHost';
-import ContentHelperModal from './components/ContentHelperModal';
 import AdminPanel from './components/AdminPanel';
 
 interface Route {
@@ -71,7 +70,6 @@ function ScrollProgress() {
 
 function Site() {
   const [route, setRoute] = useState<Route>(parseHash);
-  const [helperOpen, setHelperOpen] = useState(false);
   const [customBranches, setCustomBranches] = useState<BranchNode[]>(() => loadCustomBranches());
   const [live, setLive] = useState<LiveContent>({ branches: null, posts: null });
 
@@ -158,7 +156,6 @@ function Site() {
               branches={branches}
               path={route.path}
               onNavigate={onBranchPathChange}
-              onOpenHelper={() => setHelperOpen(true)}
             />
             <NewsBlogFeed
               posts={posts}
@@ -173,11 +170,6 @@ function Site() {
       <Footer profile={siteData.profile} instagram={siteData.instagram} onNavigate={onNavigate} />
 
       <ToastHost />
-      <ContentHelperModal
-        open={helperOpen}
-        onClose={() => setHelperOpen(false)}
-        branches={branches}
-      />
     </div>
   );
 }

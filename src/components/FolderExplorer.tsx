@@ -13,7 +13,6 @@ import {
   Search,
   Stethoscope,
   Users,
-  Wand2,
   X,
   type LucideIcon,
 } from 'lucide-react';
@@ -127,10 +126,9 @@ interface FolderExplorerProps {
   branches: BranchNode[];
   path: string[];
   onNavigate: (ids: string[]) => void;
-  onOpenHelper: () => void;
 }
 
-export default function FolderExplorer({ branches, path, onNavigate, onOpenHelper }: FolderExplorerProps) {
+export default function FolderExplorer({ branches, path, onNavigate }: FolderExplorerProps) {
   const { t, lt, lang } = useLang();
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>(FILTERS[0]);
@@ -182,14 +180,6 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
               {t('explorer.subtitle')}
             </p>
           </div>
-          <button
-            onClick={onOpenHelper}
-            className="inline-flex items-center gap-2 rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-ink-2 shadow-sm transition-all hover:border-royal-300 hover:text-royal-700"
-            title={t('explorer.addContent')}
-          >
-            <Wand2 className="h-4 w-4 text-royal-600" />
-            <span className="hidden sm:inline">{t('explorer.addContent')}</span>
-          </button>
         </div>
         </Reveal>
 
