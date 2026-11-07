@@ -217,3 +217,25 @@
 - `src/data/reels.ts` (new), `src/data/siteData.ts`, `src/types/content.ts`
 - `src/components/MascotCoin.tsx` (new, replaces PixelRingAvatar), `ReelsMarquee.tsx` (new), `AdminPanel.tsx` (new), `Header.tsx`, `HeroProfile.tsx`, `Footer.tsx`
 - `src/lib/adminStore.ts` (new), `src/App.tsx`, `src/i18n.tsx`
+
+---
+
+## Round 3 — Firebase CMS, Live Instagram Stats & Fluid Motion Layer
+
+**Description:** Moved content to Cloud Firestore (public read, admin-only write via Firebase Auth email `dr.ibrahem@mus-hub.com`), added live follower count via Playwright refresh (`public/ig-stats.json`, 6h cron), and upgraded scroll/motion to an elite fluid feel.
+
+**Acceptance criteria:**
+- [x] `#/admin` = real email/password login; add/edit/delete branches (nested), Drive links, and news posts — live for all visitors, no redeploy
+- [x] Firestore rules: public read, write restricted server-side to admin email (verified: unauth write → 403)
+- [x] Follower count auto-refreshes (Playwright Chromium) and renders in hero pill, reels banner, footer card
+- [x] Motion layer: `Reveal` component + staggered grids, hero entrance, scroll progress hairline, nav underline sweep, page-in transition; `prefers-reduced-motion` respected
+- [x] Deployed to Firebase Hosting (`dr-ibrahim-hub.web.app`) + GitHub Pages mirror via one workflow
+
+**Verification (2026-11-07, live site):**
+- [x] `npm run typecheck && vite build` clean (only >500kB chunk warning)
+- [x] `scripts/motion-check.mjs` + live Playwright probe: 12 reveals all reach `is-in` on scroll, stagger delays 0.04/0.11/0.18s, progress bar 0%→100%, admin login renders, Arabic toggle → `dir=rtl`, zero console/page errors
+- [x] Live bundle hash `index-IsSbuX7N.js` matches local `dist/` on both hosts
+
+**Known follow-ups:**
+- [ ] Admin email discrepancy to confirm before future Firebase work: `dr.ibrahim@mus-hub.com` vs `dr.ibrahem@mus-hub.com` (live user verified as `dr.ibrahem@mus-hub.com`)
+- [ ] Optional: code-split the >500kB JS chunk; tune motion timing after human review
