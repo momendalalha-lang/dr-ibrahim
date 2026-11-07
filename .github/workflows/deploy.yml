@@ -4,8 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # daily stats refresh — re-checks the Instagram follower count
+    - cron: '15 6 * * *'
 
 permissions:
+  contents: write
   pages: write
   id-token: write
 
@@ -24,8 +28,23 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Update Instagram stats (best effort)
+        run: node scripts/update-instagram.mjs
+
       - run: npm ci
       - run: npm run build
+
+      - name: Commit updated stats (if changed)
+        run: |
+          if ! git diff --quiet src/data/reels.ts; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/data/reels.ts
+            git commit -m "chore: refresh Instagram follower count [skip ci]"
+            git push
+          else
+            echo "no stat changes"
+          fi
 
       - uses: actions/configure-pages@v5
 
@@ -33,7 +52,7 @@ jobs:
         with:
           path: ./dist
 
-  deploy:
+  deploy-pages:
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -42,3 +61,23 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-firebase:
+    needs: build
+    if: ${{ vars.DEPLOY_FIREBASE == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        run: npx -y firebase-tools deploy --only hosting --project dr-ibrahim-hub --token "$FIREBASE_TOKEN"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
