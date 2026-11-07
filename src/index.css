@@ -194,6 +194,109 @@ body {
     0 4px 10px -6px rgb(91 33 182 / 0.10);
 }
 
+/* ── Fluid motion: scroll reveals & entrance choreography ──── */
+:root {
+  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* block reveal — fades + rises when scrolled into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease-fluid),
+    transform 0.7s var(--ease-fluid);
+  transition-delay: var(--rd, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* staggered group — wrapper stays put, direct children cascade in.
+   Contract: .stagger-children lives on the same element as .reveal.stagger */
+.reveal.stagger {
+  opacity: 1;
+  transform: none;
+}
+.reveal.stagger:not(.is-in) > * {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.reveal.stagger > * {
+  transition:
+    opacity 0.55s var(--ease-fluid),
+    transform 0.55s var(--ease-fluid);
+  transition-delay: var(--cd, 0ms);
+}
+.reveal.stagger.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+.stagger-children > *:nth-child(1) { --cd: 40ms; }
+.stagger-children > *:nth-child(2) { --cd: 110ms; }
+.stagger-children > *:nth-child(3) { --cd: 180ms; }
+.stagger-children > *:nth-child(4) { --cd: 250ms; }
+.stagger-children > *:nth-child(5) { --cd: 320ms; }
+.stagger-children > *:nth-child(6) { --cd: 390ms; }
+.stagger-children > *:nth-child(7) { --cd: 460ms; }
+.stagger-children > *:nth-child(8) { --cd: 530ms; }
+.stagger-children > *:nth-child(n+9) { --cd: 580ms; }
+
+/* hero entrance — plays once on mount, delay via --d */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-in {
+  animation: hero-in 0.85s var(--ease-fluid) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* route/page entrance */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-in {
+  animation: page-in 0.45s var(--ease-fluid) both;
+}
+
+/* nav link underline sweep */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 12px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-mint-500);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s var(--ease-fluid);
+}
+[dir="rtl"] .nav-link::after {
+  transform-origin: right center;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
 /* ── Overlays & toast ───────────────────────────────────────── */
 @keyframes overlay-in {
   from {
@@ -248,12 +351,20 @@ body {
   .marquee-track,
   .anim-overlay,
   .anim-modal,
-  .anim-toast {
+  .anim-toast,
+  .hero-in,
+  .page-in {
     animation: none !important;
   }
   .card-lift,
   .card-lift:hover {
     transition: none;
     transform: none;
+  }
+  .reveal,
+  .reveal.stagger .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

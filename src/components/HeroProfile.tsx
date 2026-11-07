@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -71,23 +71,38 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-14">
           {/* ── intro ── */}
           <div className="text-center lg:text-start">
-            <p className="eyebrow inline-flex items-center gap-2 rounded-full border border-mint-300 bg-mint-50 px-4 py-1.5 text-mint-700">
+            <p
+              className="eyebrow hero-in inline-flex items-center gap-2 rounded-full border border-mint-300 bg-mint-50 px-4 py-1.5 text-mint-700"
+              style={{ '--d': '0ms' } as CSSProperties}
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-mint-500" />
               {t('hero.badge')}
             </p>
 
-            <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+            <h1
+              className="hero-in mt-5 font-display text-5xl font-semibold tracking-tight text-ink sm:text-6xl"
+              style={{ '--d': '80ms' } as CSSProperties}
+            >
               {profile.name}
             </h1>
-            <p className="mt-3 font-display text-lg italic text-royal-700 sm:text-xl">
+            <p
+              className="hero-in mt-3 font-display text-lg italic text-royal-700 sm:text-xl"
+              style={{ '--d': '170ms' } as CSSProperties}
+            >
               {lt(profile.subtitle)}
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-3 lg:mx-0">
+            <p
+              className="hero-in mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-3 lg:mx-0"
+              style={{ '--d': '260ms' } as CSSProperties}
+            >
               {lt(profile.bio)}
             </p>
 
             {/* status + live Instagram followers */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
+            <div
+              className="hero-in mt-6 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start"
+              style={{ '--d': '350ms' } as CSSProperties}
+            >
               <div className="inline-flex items-center gap-2.5 rounded-full border border-mint-200 bg-mint-50 px-4 py-1.5">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-500 opacity-60" />
@@ -113,7 +128,10 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
             </div>
 
             {/* action bar */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div
+              className="hero-in mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+              style={{ '--d': '440ms' } as CSSProperties}
+            >
               <button
                 onClick={scrollToConnect}
                 className="inline-flex items-center gap-2 rounded-xl bg-mint-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-mint-600/25 transition-all hover:bg-mint-700 active:scale-[0.98]"
@@ -146,7 +164,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
           </div>
 
           {/* ── mascot coin in a paper frame ── */}
-          <div className="relative mx-auto w-fit">
+          <div className="hero-in relative mx-auto w-fit" style={{ '--d': '540ms' } as CSSProperties}>
             <div className="relative rotate-2 rounded-2xl border border-line bg-surface p-4 pb-5 shadow-[0_18px_40px_-18px_rgb(43_33_21/0.4)] transition-transform duration-500 hover:rotate-0">
               {/* tape strips */}
               <span className="absolute -top-2.5 left-6 h-5 w-16 -rotate-6 rounded-sm bg-mint-200/70" aria-hidden="true" />
@@ -160,7 +178,10 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
         </div>
 
         {/* pinned directions banner */}
-        <div className="mt-14 w-full rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+        <div
+          className="hero-in mt-14 w-full rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6"
+          style={{ '--d': '640ms' } as CSSProperties}
+        >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-3.5">
               <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-mint-100 text-mint-700 ring-1 ring-mint-200">

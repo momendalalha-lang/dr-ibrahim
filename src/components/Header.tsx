@@ -52,7 +52,7 @@ export default function Header({ profile, onNavigate }: HeaderProps) {
               key={key}
               href={`#${id}`}
               onClick={scrollTo(id)}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-ink-3 transition-colors hover:bg-royal-50 hover:text-royal-700"
+              className="nav-link rounded-lg px-3 py-2 text-sm font-medium text-ink-3 transition-colors hover:bg-royal-50 hover:text-royal-700"
             >
               {t(key)}
             </a>

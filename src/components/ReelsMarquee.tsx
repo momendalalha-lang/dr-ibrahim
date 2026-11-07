@@ -2,6 +2,7 @@ import { ArrowUpRight, Camera, Play } from 'lucide-react';
 import { useLang } from '../i18n';
 import { instagramProfile, reels } from '../data/reels';
 import { useInstagramStats } from '../lib/useInstagramStats';
+import Reveal from './Reveal';
 
 /**
  * Moving banner of the latest Instagram reels.
@@ -33,6 +34,7 @@ export default function ReelsMarquee() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* header */}
+        <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow inline-flex items-center gap-2 text-mint-300">
@@ -58,10 +60,12 @@ export default function ReelsMarquee() {
             <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
           </a>
         </div>
+        </Reveal>
       </div>
 
       {/* moving banner */}
-      <div className="marquee-band relative mt-8 overflow-hidden" dir="ltr">
+      <Reveal delay={120} className="relative mt-8">
+      <div className="marquee-band overflow-hidden" dir="ltr">
         {/* edge fades */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-plum-900 to-transparent sm:w-28" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-plum-900 to-transparent sm:w-28" aria-hidden="true" />
@@ -99,6 +103,7 @@ export default function ReelsMarquee() {
           ))}
         </div>
       </div>
+      </Reveal>
     </section>
   );
 }

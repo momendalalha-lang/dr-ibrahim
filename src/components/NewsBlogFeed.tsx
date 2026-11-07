@@ -3,6 +3,7 @@ import { ArrowUpRight, CalendarDays, Clock, Newspaper, Pin } from 'lucide-react'
 import { useLang, type DictKey } from '../i18n';
 import type { BlogPost } from '../types/content';
 import ArticleModal, { PostCategoryChip } from './ArticleModal';
+import Reveal from './Reveal';
 
 interface NewsBlogFeedProps {
   posts: BlogPost[];
@@ -37,6 +38,7 @@ export default function NewsBlogFeed({ posts, activePostId, onOpenPost, onGoToBr
     <section id="news" className="relative scroll-mt-20 bg-surface py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* header */}
+        <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-royal-700">{t('news.eyebrow')}</p>
@@ -48,8 +50,10 @@ export default function NewsBlogFeed({ posts, activePostId, onOpenPost, onGoToBr
             </p>
           </div>
         </div>
+        </Reveal>
 
         {/* filters */}
+        <Reveal delay={80}>
         <div className="mt-7 flex flex-wrap gap-2">
           {FILTERS.map((f) => {
             const active = filter === f.key;
@@ -68,19 +72,24 @@ export default function NewsBlogFeed({ posts, activePostId, onOpenPost, onGoToBr
             );
           })}
         </div>
+        </Reveal>
 
-        {/* posts grid */}
+        {/* posts grid — remounts per filter so the stagger replays */}
         {visible.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-line-strong bg-canvas/60 px-6 py-14 text-center">
             <Newspaper className="mx-auto h-8 w-8 text-ink-4" />
             <p className="mt-3 text-sm text-ink-3">{t('news.empty')}</p>
           </div>
         ) : (
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <Reveal
+            key={filter}
+            stagger
+            className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3 stagger-children"
+          >
             {visible.map((post) => (
               <PostCard key={post.id} post={post} onOpen={() => onOpenPost(post.id)} />
             ))}
-          </div>
+          </Reveal>
         )}
       </div>
 

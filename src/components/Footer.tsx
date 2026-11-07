@@ -4,6 +4,7 @@ import { useLang } from '../i18n';
 import type { InstagramProfile, SiteProfile } from '../types/content';
 import { useInstagramStats } from '../lib/useInstagramStats';
 import MascotCoin from './MascotCoin';
+import Reveal from './Reveal';
 
 interface FooterProps {
   profile: SiteProfile;
@@ -31,7 +32,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
   return (
     <footer id="connect" className="paper-grain scroll-mt-20 bg-plum-900 text-[#e9e0f2]">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-3">
+        <Reveal stagger className="grid gap-10 md:grid-cols-3 stagger-children">
           {/* brand */}
           <div>
             <div className="flex items-center gap-3">
@@ -99,15 +100,16 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
               })}
             </ul>
           </div>
-        </div>
+        </Reveal>
 
         {/* Instagram contact card */}
         {instagram && (
+          <Reveal delay={200} className="mt-10">
           <a
             href={instagram.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-10 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-mint-400/40 sm:flex-row sm:items-center"
+            className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-mint-400/40 sm:flex-row sm:items-center"
           >
             <MascotCoin profile={profile} size={64} variant="logo" />
             <div className="min-w-0 flex-1">
@@ -129,9 +131,11 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
               <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
             </span>
           </a>
+          </Reveal>
         )}
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#8f7fb0] sm:flex-row">
+        <Reveal delay={300} className="mt-10">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#8f7fb0] sm:flex-row">
           <p>
             © {year} {profile.name}. {t('footer.rights')}
           </p>
@@ -142,6 +146,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
             </a>
           </p>
         </div>
+        </Reveal>
       </div>
     </footer>
   );

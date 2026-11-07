@@ -20,6 +20,7 @@ import {
 import { useLang, type DictKey } from '../i18n';
 import type { BranchNode, CategoryTag, DriveResource } from '../types/content';
 import DriveResourceCard from './DriveResourceCard';
+import Reveal from './Reveal';
 
 const ICONS: Record<string, LucideIcon> = {
   stethoscope: Stethoscope,
@@ -159,6 +160,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
     <section id="branches" className="relative scroll-mt-20 bg-canvas py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* header */}
+        <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-royal-700">{t('explorer.eyebrow')}</p>
@@ -178,8 +180,10 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
             <span className="hidden sm:inline">{t('explorer.addContent')}</span>
           </button>
         </div>
+        </Reveal>
 
         {/* toolbar: search + filters */}
+        <Reveal delay={80}>
         <div className="mt-8 space-y-4">
           <div className="relative">
             <Search className="pointer-events-none absolute start-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-ink-4" />
@@ -221,8 +225,10 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
             })}
           </div>
         </div>
+        </Reveal>
 
         {/* breadcrumb */}
+        <Reveal delay={140}>
         <nav
           className="mt-6 flex items-center gap-1 overflow-x-auto rounded-xl border border-line bg-surface px-3 py-2.5 shadow-sm"
           aria-label="Breadcrumb"
@@ -262,9 +268,10 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
             </button>
           )}
         </nav>
+        </Reveal>
 
-        {/* content */}
-        <div className="mt-6">
+        {/* content — remounts on branch navigation so reveals replay */}
+        <div className="mt-6" key={path.join('/')}>
           {searching ? (
             hits.length === 0 ? (
               <EmptyState text={t('explorer.noResults')} />
@@ -272,7 +279,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
               <div className="space-y-8">
                 {branchHits.length > 0 && (
                   <ResultGroup title={t('explorer.matchingBranches')} count={branchHits.length}>
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <Reveal stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
                       {branchHits.map((hit) => (
                         <BranchCard
                           key={hit.ids.join('/')}
@@ -281,12 +288,12 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                           pathLabel={hit.label}
                         />
                       ))}
-                    </div>
+                    </Reveal>
                   </ResultGroup>
                 )}
                 {resourceHits.length > 0 && (
                   <ResultGroup title={t('explorer.matchingFiles')} count={resourceHits.length}>
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <Reveal stagger className="grid gap-4 md:grid-cols-2 stagger-children">
                       {resourceHits.map((hit) => (
                         <div key={`${hit.ids.join('/')}:${hit.resource.id}`} className="space-y-2">
                           <DriveResourceCard resource={hit.resource} pathLabel={hit.label} />
@@ -298,7 +305,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                           </button>
                         </div>
                       ))}
-                    </div>
+                    </Reveal>
                   </ResultGroup>
                 )}
               </div>
@@ -307,7 +314,8 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
             <>
               {/* directions box */}
               {current?.directions && (
-                <div className="mb-6 rounded-2xl border border-royal-200 bg-royal-50/70 p-5">
+                <Reveal className="mb-6">
+                <div className="rounded-2xl border border-royal-200 bg-royal-50/70 p-5">
                   <p className="eyebrow flex items-center gap-2 text-royal-700">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-royal-600" />
                     {t('explorer.directionsTitle')}
@@ -315,6 +323,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                   <p className="mt-2 text-sm leading-relaxed text-ink-2">{lt(current.directions)}</p>
                   <p className="mt-2 text-xs text-ink-4">{t('explorer.directionsHint')}</p>
                 </div>
+                </Reveal>
               )}
 
               {/* sub-branches */}
@@ -323,7 +332,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                   <p className="mb-3 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-4">
                     {visibleChildren.length} {t('explorer.folders')}
                   </p>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Reveal stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
                     {visibleChildren.map((child) => (
                       <BranchCard
                         key={child.id}
@@ -331,7 +340,7 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                         onOpen={() => onNavigate([...path, child.id])}
                       />
                     ))}
-                  </div>
+                  </Reveal>
                 </div>
               )}
 
@@ -341,11 +350,11 @@ export default function FolderExplorer({ branches, path, onNavigate, onOpenHelpe
                   <p className="mb-3 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-4">
                     {visibleResources.length} {t('explorer.resources')}
                   </p>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <Reveal stagger className="grid gap-4 md:grid-cols-2 stagger-children">
                     {visibleResources.map((res) => (
                       <DriveResourceCard key={res.id} resource={res} />
                     ))}
-                  </div>
+                  </Reveal>
                 </div>
               )}
 

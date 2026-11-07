@@ -36,6 +36,38 @@ function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+/** slim mint progress hairline pinned to the top of the viewport */
+function ScrollProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = document.documentElement;
+        const max = el.scrollHeight - el.clientHeight;
+        setP(max > 0 ? Math.min(1, el.scrollTop / max) : 0);
+      });
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  return (
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px]" aria-hidden="true">
+      <div
+        className="h-full bg-gradient-to-r from-mint-500 via-mint-400 to-royal-500 shadow-[0_0_10px_rgb(63_175_96/0.55)]"
+        style={{ width: `${p * 100}%` }}
+      />
+    </div>
+  );
+}
+
 function Site() {
   const [route, setRoute] = useState<Route>(parseHash);
   const [helperOpen, setHelperOpen] = useState(false);
@@ -100,9 +132,10 @@ function Site() {
 
   return (
     <div className="min-h-screen bg-canvas font-body text-ink">
+      <ScrollProgress />
       <Header profile={siteData.profile} onNavigate={onNavigate} />
 
-      <main>
+      <main key={route.admin ? 'admin' : 'site'} className="page-in">
         {route.admin ? (
           <AdminPanel
             branches={branches}
