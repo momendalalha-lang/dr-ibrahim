@@ -44,15 +44,15 @@
   --color-plum-700: #4a2270;
 
   /* ── Typography ────────────────────────────────────────────── */
-  --font-display: "Fraunces", "IBM Plex Sans Arabic", Georgia, serif;
-  --font-body: "Plus Jakarta Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", "IBM Plex Sans Arabic", Georgia, serif;
+  --font-body: "Newsreader", "IBM Plex Sans Arabic", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
 }
 
 /* Arabic mode: prefer the Arabic-capable face across the whole stack */
 [dir="rtl"] {
-  --font-display: "IBM Plex Sans Arabic", "Fraunces", serif;
-  --font-body: "IBM Plex Sans Arabic", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "IBM Plex Sans Arabic", "Playfair Display", serif;
+  --font-body: "IBM Plex Sans Arabic", "Newsreader", serif;
 }
 
 html {
