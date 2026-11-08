@@ -238,4 +238,5 @@
 
 **Known follow-ups:**
 - [x] Admin email resolved: the live account is `dr.ibrahim@mus-hub.com` (with "i"); rules match; login + write verified 2026-11-07
+- [ ] Instagram updater on pure cloud: GitHub IPs are login-walled → migrating to Meta Graph API. Full runbook: `tasks/instagram-api-migration.md`. Interim: local `MUS-IG-Stats` scheduled task every 30 min (works, residential IP). Needs: IG→Professional + Meta app token from user
 - [ ] Optional: code-split the >500kB JS chunk; tune motion timing after human review
