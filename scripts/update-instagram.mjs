@@ -193,6 +193,21 @@ if (!stats?.followers) {
 
 const path = 'src/data/reels.ts';
 const src = readFileSync(path, 'utf8');
+
+// Skip all writes when the count is unchanged — ig-stats.json carries a
+// timestamp, so writing it unconditionally would dirty the repo (and trigger
+// a full redeploy) on every scheduled run even when nothing changed.
+const cur = src.match(/followers:\s*'([\d,]+)'/);
+const curFollowing = src.match(/following:\s*'([\d,]+)'/);
+const same =
+  cur &&
+  parseCount(cur[1]) === stats.followers &&
+  (!curFollowing || parseCount(curFollowing[1]) === stats.following);
+if (same) {
+  console.log(`instagram: confirmed ${fmt(stats.followers)} followers (unchanged)`);
+  process.exit(0);
+}
+
 const next = `followers: '${fmt(stats.followers)}',
   following: '${fmt(stats.following)}',`;
 const updated = src.replace(

@@ -5,7 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # refresh the Instagram follower count every 6 hours
+    # backup Instagram refresh — primary updater is the local scheduled task
+    # (GitHub runner IPs usually hit Instagram's login wall)
     - cron: '*/30 * * * *'
 
 permissions:
