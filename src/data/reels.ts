@@ -20,7 +20,7 @@ export const instagramProfile = {
   handle: 'dr.ibrahem_musadaq',
   url: IG,
   name: 'Dr.Ibrahem Hamza',
-  followers: '2,353',
+  followers: '2,357',
   following: '1',
   verified: true,
   bio: {
