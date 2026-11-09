@@ -39,7 +39,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
             <div className="flex items-center gap-3">
               <MascotCoin profile={profile} size={44} variant="logo" />
               <div>
-                <p className="font-display text-lg font-semibold text-white">{profile.name}</p>
+                <p className="font-display text-lg font-semibold text-white">{lt(profile.name)}</p>
                 <p className="text-xs text-[#a8c8ac]">{lt(profile.subtitle)}</p>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
         <Reveal delay={300} className="mt-10">
         <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#7d9c81] sm:flex-row">
           <p>
-            © {year} {profile.name}. {t('footer.rights')}
+            © {year} {lt(profile.name)}. {t('footer.rights')}
           </p>
           <p className="flex items-center gap-3 font-mono text-[11px] tracking-wide">
             <span>{t('footer.madeWith')}</span>

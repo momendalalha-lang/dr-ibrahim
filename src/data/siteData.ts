@@ -16,7 +16,7 @@ const DRIVE = 'https://drive.google.com/drive/folders';
 
 export const siteData: SiteData = {
   profile: {
-    name: 'Dr Ibrahim',
+    name: { en: 'Dr Ibrahim', ar: 'د. إبراهيم' },
     subtitle: {
       en: 'Medical Doctor (M.D.) — Health & Educational Content',
       ar: 'دكتور في الطب — محتوى صحي تعليمي',

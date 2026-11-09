@@ -53,7 +53,7 @@ export interface SocialLink {
 }
 
 export interface SiteProfile {
-  name: string;
+  name: LocalizedText;
   subtitle: LocalizedText;
   bio: LocalizedText;
   avatarSrc: string;

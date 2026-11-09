@@ -49,7 +49,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
 
   const shareProfile = async () => {
     const shareData = {
-      title: `${profile.name} — Medical Knowledge Hub`,
+      title: `${lt(profile.name)} — Medical Knowledge Hub`,
       text: lt(profile.subtitle),
       url: siteUrl,
     };
@@ -89,7 +89,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
               className="hero-in mt-5 font-display text-5xl font-semibold tracking-tight text-ink sm:text-6xl"
               style={{ '--d': '80ms' } as CSSProperties}
             >
-              {profile.name}
+              {lt(profile.name)}
             </h1>
             <p
               className="hero-in mt-3 font-display text-lg italic text-royal-700 sm:text-xl"
@@ -180,7 +180,7 @@ export default function HeroProfile({ profile, onOpenBranch, onScrollTo }: HeroP
               <span className="absolute -top-2 right-8 h-5 w-14 rotate-3 rounded-sm bg-royal-200/70" aria-hidden="true" />
               <MascotCoin profile={profile} size={224} />
               <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4">
-                {profile.name} · {t('hero.mascotTag')}
+                {lt(profile.name)} · {t('hero.mascotTag')}
               </p>
             </div>
           </div>

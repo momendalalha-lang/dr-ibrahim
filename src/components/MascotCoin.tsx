@@ -17,7 +17,7 @@ interface MascotCoinProps {
  * curved along a semicircle above it.
  */
 export default function MascotCoin({ profile, size = 216, variant = 'hero' }: MascotCoinProps) {
-  const { lang } = useLang();
+  const { lang, lt } = useLang();
   const uid = useId();
   const isSprite = profile.avatarMode === 'sprite' && !!profile.avatarSpriteSrc;
   const showArc = variant === 'hero';
@@ -28,7 +28,7 @@ export default function MascotCoin({ profile, size = 216, variant = 'hero' }: Ma
       className="group relative"
       style={{ width: size, height: size }}
       role="img"
-      aria-label={profile.name}
+      aria-label={lt(profile.name)}
     >
       {/* white medallion — 62% of the emblem, centered at (50%, 63%) */}
       <div
@@ -43,7 +43,7 @@ export default function MascotCoin({ profile, size = 216, variant = 'hero' }: Ma
         {isSprite ? (
           <img
             src={profile.avatarSpriteSrc}
-            alt={profile.name}
+            alt={lt(profile.name)}
             className="h-full w-full object-cover"
           />
         ) : (

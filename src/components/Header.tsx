@@ -11,7 +11,7 @@ interface HeaderProps {
 }
 
 export default function Header({ profile, onNavigate }: HeaderProps) {
-  const { lang, setLang, t } = useLang();
+  const { lang, setLang, t, lt } = useLang();
 
   const scrollTo = (id: string) => (e: ReactMouseEvent) => {
     e.preventDefault();
@@ -26,12 +26,12 @@ export default function Header({ profile, onNavigate }: HeaderProps) {
           href="#top"
           onClick={scrollTo('top')}
           className="group flex items-center gap-3"
-          aria-label={profile.name}
+          aria-label={lt(profile.name)}
         >
           <MascotCoin profile={profile} size={42} variant="logo" />
           <span className="leading-tight">
             <span className="block font-display text-lg font-semibold tracking-tight text-ink">
-              {profile.name}
+              {lt(profile.name)}
             </span>
             <span className="eyebrow block text-ink-4">
               {lang === 'ar' ? 'مركز المعرفة الطبية' : 'Medical Hub'}
