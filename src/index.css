@@ -15,33 +15,33 @@
   --color-ink-4: #97897a;
   --color-ink-5: #c3b8a2;
 
-  /* ── Editorial purple ──────────────────────────────────────── */
-  --color-royal-50: #f5f1fe;
-  --color-royal-100: #ebe4fd;
-  --color-royal-200: #d9cbfa;
-  --color-royal-300: #bea6f5;
-  --color-royal-400: #9d7ced;
-  --color-royal-500: #7c5ce0;
-  --color-royal-600: #6d3fd1;
-  --color-royal-700: #5b21b6;
-  --color-royal-800: #4c1d95;
-  --color-royal-900: #34145e;
+  /* ── Editorial green (formerly royal purple) ───────────────── */
+  --color-royal-50: #f0f9f2;
+  --color-royal-100: #ddf2e1;
+  --color-royal-200: #c2e7c9;
+  --color-royal-300: #94d6a4;
+  --color-royal-400: #63c37d;
+  --color-royal-500: #3faf60;
+  --color-royal-600: #2f9149;
+  --color-royal-700: #25743b;
+  --color-royal-800: #1c5b2e;
+  --color-royal-900: #123c22;
 
-  /* ── Vivid leaf green (calm but eye-catching) ──────────────── */
-  --color-mint-50: #f0f9f2;
-  --color-mint-100: #ddf2e1;
-  --color-mint-200: #c2e7c9;
-  --color-mint-300: #94d6a4;
-  --color-mint-400: #63c37d;
-  --color-mint-500: #3faf60;
-  --color-mint-600: #2f9149;
-  --color-mint-700: #25743b;
-  --color-mint-800: #1c5b2e;
+  /* ── Royal purple (formerly leaf green) ────────────────────── */
+  --color-mint-50: #f5f1fe;
+  --color-mint-100: #ebe4fd;
+  --color-mint-200: #d9cbfa;
+  --color-mint-300: #bea6f5;
+  --color-mint-400: #9d7ced;
+  --color-mint-500: #7c5ce0;
+  --color-mint-600: #6d3fd1;
+  --color-mint-700: #5b21b6;
+  --color-mint-800: #4c1d95;
 
-  /* ── Deep plum (footer / dark bands) ───────────────────────── */
-  --color-plum-900: #2e1449;
-  --color-plum-800: #3b1a5c;
-  --color-plum-700: #4a2270;
+  /* ── Deep forest (footer / dark bands — was plum purple) ────── */
+  --color-plum-900: #0f2e1b;
+  --color-plum-800: #1a4d2b;
+  --color-plum-700: #256b3a;
 
   /* ── Typography ────────────────────────────────────────────── */
   --font-display: "Playfair Display", "IBM Plex Sans Arabic", Georgia, serif;

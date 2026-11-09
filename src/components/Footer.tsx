@@ -31,7 +31,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
   };
 
   return (
-    <footer id="connect" className="paper-grain scroll-mt-20 bg-plum-900 text-[#e9e0f2]">
+    <footer id="connect" className="paper-grain scroll-mt-20 bg-plum-900 text-[#e6efe4]">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <Reveal stagger className="grid gap-10 md:grid-cols-3 stagger-children">
           {/* brand */}
@@ -40,10 +40,10 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
               <MascotCoin profile={profile} size={44} variant="logo" />
               <div>
                 <p className="font-display text-lg font-semibold text-white">{profile.name}</p>
-                <p className="text-xs text-[#b9a8d6]">{lt(profile.subtitle)}</p>
+                <p className="text-xs text-[#a8c8ac]">{lt(profile.subtitle)}</p>
               </div>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#c9bce0]">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#c5dcc3]">
               {lt(profile.bio).split('.')[0]}.
             </p>
             <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-mint-400/25 bg-mint-500/10 px-3.5 py-1.5 text-xs font-semibold text-mint-300">
@@ -68,7 +68,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
                   <a
                     href={`#${id}`}
                     onClick={scrollTo(id)}
-                    className="text-[#c9bce0] transition-colors hover:text-white"
+                    className="text-[#c5dcc3] transition-colors hover:text-white"
                   >
                     {t(key)}
                   </a>
@@ -90,9 +90,9 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
                     target={s.url === '#' ? undefined : '_blank'}
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('social_click', { network: s.id })}
-                    className="group inline-flex items-center gap-2.5 text-sm text-[#c9bce0] transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-2.5 text-sm text-[#c5dcc3] transition-colors hover:text-white"
                   >
-                    <span className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/5 text-[#c9bce0] transition-colors group-hover:border-mint-400/50 group-hover:text-mint-300">
+                    <span className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/5 text-[#c5dcc3] transition-colors group-hover:border-mint-400/50 group-hover:text-mint-300">
                       <SocialIcon className="h-3.5 w-3.5" />
                     </span>
                     {lt(s.label)}
@@ -119,11 +119,11 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
               <p className="flex items-center gap-1.5 font-display text-base font-semibold text-white">
                 {instagram.name}
                 {instagram.verified && <BadgeCheck className="h-4 w-4 fill-mint-400 text-plum-900" />}
-                <span className="font-mono text-xs font-normal text-[#b9a8d6]" dir="ltr">
+                <span className="font-mono text-xs font-normal text-[#a8c8ac]" dir="ltr">
                   @{instagram.handle}
                 </span>
               </p>
-              <p className="mt-0.5 text-sm text-[#c9bce0]">{lt(instagram.bio)}</p>
+              <p className="mt-0.5 text-sm text-[#c5dcc3]">{lt(instagram.bio)}</p>
               <p className="mt-1.5 font-mono text-[11px] text-mint-300">
                 {igStats.followers} {t('reels.followers')} · {igStats.following} following
               </p>
@@ -138,7 +138,7 @@ export default function Footer({ profile, instagram, onNavigate }: FooterProps) 
         )}
 
         <Reveal delay={300} className="mt-10">
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#8f7fb0] sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#7d9c81] sm:flex-row">
           <p>
             © {year} {profile.name}. {t('footer.rights')}
           </p>

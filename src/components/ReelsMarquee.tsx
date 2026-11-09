@@ -24,12 +24,12 @@ export default function ReelsMarquee() {
       {/* soft glows */}
       <div
         className="pointer-events-none absolute -top-24 start-1/4 h-64 w-64 rounded-full opacity-25 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #7C5CE0, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #3FAF60, transparent 70%)' }}
         aria-hidden="true"
       />
       <div
         className="pointer-events-none absolute -bottom-24 end-1/4 h-64 w-64 rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #3FAF60, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #7C5CE0, transparent 70%)' }}
         aria-hidden="true"
       />
 
@@ -44,7 +44,7 @@ export default function ReelsMarquee() {
             </p>
             <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
               {instagramProfile.name}
-              <span className="ms-2 align-middle text-sm font-normal text-[#b9a8d6]" dir="ltr">
+              <span className="ms-2 align-middle text-sm font-normal text-[#a8c8ac]" dir="ltr">
                 @{instagramProfile.handle}
               </span>
             </h2>
@@ -99,7 +99,7 @@ export default function ReelsMarquee() {
                   {t('reels.badge')}
                 </span>
               </div>
-              <p className="line-clamp-2 min-h-[2.6em] px-3 py-2.5 text-[12.5px] leading-snug text-[#d8cdea]">
+              <p className="line-clamp-2 min-h-[2.6em] px-3 py-2.5 text-[12.5px] leading-snug text-[#d0e0cf]">
                 {lt(reel.caption)}
               </p>
             </a>

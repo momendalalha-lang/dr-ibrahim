@@ -52,7 +52,7 @@ export default function MascotCoin({ profile, size = 216, variant = 'hero' }: Ma
               className="absolute inset-0"
               style={{
                 background:
-                  'radial-gradient(circle at 50% 30%, #DDCFFB 0%, #C9B6F2 55%, #A98FE8 100%)',
+                  'radial-gradient(circle at 50% 30%, #E4F3E6 0%, #C2E7C9 55%, #94D6A4 100%)',
               }}
             />
             <PixelCanvas
@@ -75,13 +75,13 @@ export default function MascotCoin({ profile, size = 216, variant = 'hero' }: Ma
             <path id={`mascot-arc-${uid}`} d="M 26 126 A 74 74 0 0 1 174 126" fill="none" />
           </defs>
           {/* anchor dots where the arc meets the badge */}
-          <circle cx="38" cy="126" r="2.4" fill="#3FAF60" />
-          <circle cx="162" cy="126" r="2.4" fill="#3FAF60" />
+          <circle cx="38" cy="126" r="2.4" fill="#7C5CE0" />
+          <circle cx="162" cy="126" r="2.4" fill="#7C5CE0" />
           <text
-            fontFamily="'Fraunces', 'IBM Plex Sans Arabic', serif"
+            fontFamily="'Playfair Display', 'IBM Plex Sans Arabic', serif"
             fontWeight="600"
             fontSize="15"
-            fill="#4C1D95"
+            fill="#1c5b2e"
           >
             <textPath
               href={`#mascot-arc-${uid}`}
