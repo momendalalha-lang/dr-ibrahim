@@ -27,16 +27,16 @@
   --color-royal-800: #1c5b2e;
   --color-royal-900: #123c22;
 
-  /* ── Royal purple (formerly leaf green) ────────────────────── */
-  --color-mint-50: #f5f1fe;
-  --color-mint-100: #ebe4fd;
-  --color-mint-200: #d9cbfa;
-  --color-mint-300: #bea6f5;
-  --color-mint-400: #9d7ced;
-  --color-mint-500: #7c5ce0;
-  --color-mint-600: #6d3fd1;
-  --color-mint-700: #5b21b6;
-  --color-mint-800: #4c1d95;
+  /* ── Deep medical green — CTAs & primary actions ────────────── */
+  --color-mint-50: #eef6ef;
+  --color-mint-100: #d9ecd9;
+  --color-mint-200: #b3d8b6;
+  --color-mint-300: #86bf8d;
+  --color-mint-400: #58a266;
+  --color-mint-500: #3a8450;
+  --color-mint-600: #256b3a;
+  --color-mint-700: #1d5530;
+  --color-mint-800: #163f24;
 
   /* ── Deep forest (footer / dark bands — was plum purple) ────── */
   --color-plum-900: #0f2e1b;

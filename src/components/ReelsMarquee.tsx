@@ -29,7 +29,7 @@ export default function ReelsMarquee() {
       />
       <div
         className="pointer-events-none absolute -bottom-24 end-1/4 h-64 w-64 rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #7C5CE0, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #d4a94e, transparent 70%)' }}
         aria-hidden="true"
       />
 
