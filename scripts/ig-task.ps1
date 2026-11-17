@@ -8,6 +8,14 @@ $log = 'scripts\ig-task.log'
 
 "=== $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File $log -Append -Encoding utf8
 
+# self-heal: if the Playwright browser binary is missing (cache cleaned /
+# version bump), reinstall it once instead of failing silently forever
+$pwBrowser = Get-ChildItem "$env:LOCALAPPDATA\ms-playwright\chromium_headless_shell-*\chrome-headless-shell.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $pwBrowser) {
+  "playwright browser missing — reinstalling" | Out-File $log -Append -Encoding utf8
+  npx playwright install chromium 2>&1 | Out-File $log -Append -Encoding utf8
+}
+
 git pull --rebase --quiet 2>&1 | Out-File $log -Append -Encoding utf8
 node scripts\update-instagram.mjs 2>&1 | Out-File $log -Append -Encoding utf8
 
